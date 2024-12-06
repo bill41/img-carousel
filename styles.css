@@ -5,13 +5,13 @@
 
 div#carousel {
     position: relative;
+    overflow: hidden;
     margin: 0 auto;
     width: var(--width-img);
     height: var(--height-img);
 }
 div#carousel img {
     position: absolute;
-    opacity: 0;
     width: var(--width-img);
     height: var(--height-img);
 }
