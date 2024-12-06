@@ -1,0 +1,23 @@
+:root {
+    --width-img: 260px;
+    --height-img: 480px;
+}
+
+img {
+    position: absolute;
+    opacity: 0;
+    width: var(--width-img);
+    height: var(--height-img);
+}
+
+div#carousel {
+    position: relative;
+    margin: 0 auto;
+    width: var(--width-img);
+    height: var(--height-img);
+}
+
+div#controls {
+    margin-top: 1em;
+    text-align: center;
+}
