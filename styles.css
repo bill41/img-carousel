@@ -3,27 +3,20 @@
     --height-img: 480px;
 }
 
-img {
-    position: absolute;
-    width: var(--width-img);
-    height: var(--height-img);
-}
-
-button {
-    border: 1px solid #000;
-    background-color: rgb(240, 240, 240);
-    color: #000;
-}
-
 div#carousel {
     position: relative;
-    overflow: hidden;
     margin: 0 auto;
     width: var(--width-img);
     height: var(--height-img);
 }
+div#carousel img {
+    position: absolute;
+    opacity: 0;
+    width: var(--width-img);
+    height: var(--height-img);
+}
 
-div#controls {
+div#thumbnails {
     margin-top: 1em;
     text-align: center;
 }
