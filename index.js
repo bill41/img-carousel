@@ -1,3 +1,8 @@
+// carousel parms
+const OPACITY_DELTA = 0.01;
+const TIMER_DELAY = 15;
+const TRANSITION_DURATION_SECONDS = TIMER_DELAY / OPACITY_DELTA / 1000;
+
 // button ids
 const BTN_NEXT_ID = 'btn-next';
 const BTN_PREV_ID = 'btn-prev';
@@ -16,6 +21,11 @@ const btnElements = document.querySelectorAll('div#controls button');
 for (btnElement of btnElements) {
 
     btnElement.addEventListener('click', evt => {
+
+        // disable buttons
+        for (let btn of btnElements) {
+            btn.setAttribute('disabled', 'disabled');
+        }
 
         // get clicked button
         const btnClicked = evt.currentTarget;
@@ -39,9 +49,34 @@ for (btnElement of btnElements) {
             idx -= 1;
         }
     
-        // set opacities of current and next images
-        imgCurrent.style.opacity = 0;
-        imgNext.style.opacity = 1;
+        // initialize opacities of current and next images
+        let opacityCurrent = 1;
+        let opacityNext = 0;
+        imgCurrent.style.opacity = opacityCurrent;
+        imgNext.style.opacity = opacityNext;
 
+        // fade out current image, fade in next image
+        const timerId = setInterval(() => {
+
+            // do the transition
+            opacityCurrent -= OPACITY_DELTA;
+            opacityNext += OPACITY_DELTA;
+            imgCurrent.style.opacity = opacityCurrent;
+            imgNext.style.opacity = opacityNext;
+
+            // fading complete
+            if (imgNext.style.opacity >= 1) {
+
+                // clear timer and set final opacities
+                clearTimeout(timerId);
+                imgCurrent.style.opacity = 0;
+                imgNext.style.opacity = 1;
+
+                // re-enable buttons
+                for (let btn of btnElements) {
+                    btn.removeAttribute('disabled')
+                }
+            }
+        }, TIMER_DELAY);     // setInterval
     });     // event listener for buttons
 }   // for each button

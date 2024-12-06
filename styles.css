@@ -9,6 +9,11 @@ img {
     width: var(--width-img);
     height: var(--height-img);
 }
+button {
+    border: 1px solid #000;
+    background-color: rgb(240, 240, 240);
+    color: #000;
+}
 
 div#carousel {
     position: relative;
