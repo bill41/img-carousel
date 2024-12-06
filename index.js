@@ -1,7 +1,9 @@
 // carousel parms
-const OPACITY_DELTA = 0.01;
-const TIMER_DELAY = 15;
-const TRANSITION_DURATION_SECONDS = TIMER_DELAY / OPACITY_DELTA / 1000;
+const IMG_WIDTH = 260;
+const SLIDE_INCREMENT_PX = 2;
+const TIMER_DELAY = 7;
+const TRANSITION_DURATION_SECONDS =
+    (IMG_WIDTH / SLIDE_INCREMENT_PX) * TIMER_DELAY / 1000;
 
 // button ids
 const BTN_NEXT_ID = 'btn-next';
@@ -12,9 +14,10 @@ const imgElements = document.querySelectorAll('div#carousel img');
 const numImages = imgElements.length;
 let idx = 0;
 
-// show the first image
-const imgFirst = document.querySelector('div#carousel img:first-child');
-imgFirst.style.opacity = 1;
+// initialize image positions
+for (let i = 0; i < numImages; i++) {
+    imgElements[i].style.left = i * IMG_WIDTH + 'px';
+}
 
 // click event listener for the buttons
 const btnElements = document.querySelectorAll('div#controls button');
@@ -33,6 +36,9 @@ for (btnElement of btnElements) {
         // determine current and next images
         let imgCurrent;
         let imgNext;
+        let leftCurrent = 0;
+        let leftFinalCurrent;
+        let leftNext;
         if (btnClicked.id == BTN_NEXT_ID) {   
             imgCurrent =
                 document.querySelector(`div#carousel img:nth-child(n + ${idx + 1})`);
@@ -40,6 +46,8 @@ for (btnElement of btnElements) {
             imgNext =
                 document.querySelector(`div#carousel img:nth-child(n + ${idx + 2})`);
             idx += 1;
+            leftNext = IMG_WIDTH;
+            leftFinalCurrent = -IMG_WIDTH;
         } else if (btnClicked.id == BTN_PREV_ID) {
             imgCurrent =
                 document.querySelector(`div#carousel img:nth-child(n + ${idx + 1})`);
@@ -47,36 +55,41 @@ for (btnElement of btnElements) {
             imgNext =
                 document.querySelector(`div#carousel img:nth-child(n + ${idx})`);
             idx -= 1;
+            leftNext = -IMG_WIDTH;
+            leftFinalCurrent = IMG_WIDTH;
         }
     
-        // initialize opacities of current and next images
-        let opacityCurrent = 1;
-        let opacityNext = 0;
-        imgCurrent.style.opacity = opacityCurrent;
-        imgNext.style.opacity = opacityNext;
+        // initialize positions of current and next images
+        imgCurrent.style.left = leftCurrent + 'px';
+        imgNext.style.left = leftNext + 'px';
 
-        // fade out current image, fade in next image
+        // slide out current image, slide in next image
         const timerId = setInterval(() => {
 
             // do the transition
-            opacityCurrent -= OPACITY_DELTA;
-            opacityNext += OPACITY_DELTA;
-            imgCurrent.style.opacity = opacityCurrent;
-            imgNext.style.opacity = opacityNext;
+            if (btnClicked.id == BTN_NEXT_ID) {
+                leftCurrent -= SLIDE_INCREMENT_PX;
+                leftNext -= SLIDE_INCREMENT_PX;
+            } else if (btnClicked.id == BTN_PREV_ID) {
+                leftCurrent += SLIDE_INCREMENT_PX;
+                leftNext += SLIDE_INCREMENT_PX;
+            }
+            imgNext.style.left = leftNext + 'px';
+            imgCurrent.style.left = leftCurrent + 'px';
 
-            // fading complete
-            if (imgNext.style.opacity >= 1) {
+            // sliding complete
+            if (leftNext == 0) {
 
-                // clear timer and set final opacities
+                // clear timer and set final positions
                 clearTimeout(timerId);
-                imgCurrent.style.opacity = 0;
-                imgNext.style.opacity = 1;
+                imgNext.style.left = 0 + 'px';
+                imgCurrent.style.left = leftFinalCurrent + 'px';
 
                 // re-enable buttons
                 for (let btn of btnElements) {
                     btn.removeAttribute('disabled')
                 }
-            }
-        }, TIMER_DELAY);     // setInterval
+            }       // sliding complete
+        }, TIMER_DELAY);    // setInterval
     });     // event listener for buttons
 }   // for each button
