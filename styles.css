@@ -15,8 +15,3 @@ div#carousel img {
     width: var(--width-img);
     height: var(--height-img);
 }
-
-div#thumbnails {
-    margin-top: 1em;
-    text-align: center;
-}
