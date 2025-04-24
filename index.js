@@ -1,20 +1,15 @@
 // carousel parms
-const IMG_WIDTH = 260;
-const SLIDE_DELTA = 2;
-const TIMER_DELAY_SLIDE = 7;
+const OPACITY_DELTA = 0.01;
+const TIMER_DELAY_FADE = 15;
 const TIMER_DELAY_NEXT_IMG = 5000;
 
 // all the images
 const imgElements = document.querySelectorAll('div#carousel img');
 const numImages = imgElements.length;
 
-// position the images
-for (let i = 0; i < numImages; i++) {
-    imgElements[i].style.left = IMG_WIDTH * i + 'px';
-}
-
-// the first image
+// show the first image
 let imgFirst = document.querySelector('div#carousel img:first-child');
+imgFirst.style.opacity = 1;
 let imgCurrent = imgFirst;
 
 // transition to next image
@@ -26,29 +21,31 @@ const timerIdNextImg = setInterval(() => {
         imgNext = imgFirst;
     }
 
-    // initialize positions of current and next images
-    let leftCurrent = 0;
-    let leftNext;
-    leftNext = IMG_WIDTH;
-    imgCurrent.style.left = leftCurrent + 'px';
-    imgNext.style.left = leftNext + 'px';
+    // initialize opacities of current and next images
+    let opacityCurrent = 1;
+    let opacityNext = 0;
+    imgCurrent.style.opacity = opacityCurrent;
+    imgNext.style.opacity = opacityNext;
 
-    // slide out current image, slide in next image
-    const timerIdSlide = setInterval(() => {
+    // fade out current image, fade in next image
+    const timerIdFade = setInterval(() => {
 
         // do the transition
-        leftCurrent -= SLIDE_DELTA;
-        leftNext -= SLIDE_DELTA;
-        imgCurrent.style.left = leftCurrent + 'px';
-        imgNext.style.left = leftNext + 'px';
+        opacityCurrent -= OPACITY_DELTA;
+        opacityNext += OPACITY_DELTA;
+        imgCurrent.style.opacity = opacityCurrent;
+        imgNext.style.opacity = opacityNext;
 
-        // sliding complete
-        if (imgNext.style.left == 0 + 'px') {
+        // fading complete
+        if (imgNext.style.opacity >= 1) {
 
-            // cancel timer and update new current image
-            clearInterval(timerIdSlide);
+            // set final opacities
+            clearInterval(timerIdFade);
+            imgCurrent.style.opacity = 0;
+            imgNext.style.opacity = 1;
             imgCurrent = imgNext;
-        }   // sliding complete
 
-    }, TIMER_DELAY_SLIDE);    // slide timer
+        }   // fading complete
+
+    }, TIMER_DELAY_FADE);    // fade timer
 }, TIMER_DELAY_NEXT_IMG);     // next image timer
