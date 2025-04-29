@@ -20,7 +20,7 @@ let imgFirst = document.querySelector('div#carousel img:first-child');
 let imgCurrent = imgFirst;
 
 // transition to next image
-const timerIdNextImg = setInterval(() => {
+setInterval(() => {
   // get next image
   let imgNext = imgCurrent.nextElementSibling;
   if (!imgNext) {
