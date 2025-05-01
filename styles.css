@@ -1,17 +1,17 @@
 :root {
-    --width-img: 260px;
-    --height-img: 480px;
+  --width-img: 260px;
+  --height-img: 480px;
 }
 
 div#carousel {
-    position: relative;
-    overflow: hidden;
-    margin: 0 auto;
-    width: var(--width-img);
-    height: var(--height-img);
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+  width: var(--width-img);
+  height: var(--height-img);
 }
 div#carousel img {
-    position: absolute;
-    width: var(--width-img);
-    height: var(--height-img);
+  position: absolute;
+  width: var(--width-img);
+  height: var(--height-img);
 }
