@@ -1,24 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Carousel Slide</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:,">
   </head>
   <body>
     <div id="carousel">
-      <img src="/img/123.jpg" alt="123" />
-      <img src="/img/amate.jpg" alt="amate" />
-      <img src="/img/arrogante.jpg" alt="arrogante" />
-      <img src="/img/bajarriba.jpg" alt="bajarriba" />
-      <img src="/img/blue-nectar.jpg" alt="blue-nectar" />
-      <img src="/img/casa-cofradia.jpg" alt="casa-cofradia" />
-      <img src="/img/cruz-del-sol.jpg" alt="cruz-del-sol" />
-      <img src="/img/don-eduardo.jpg" alt="don-eduardo" />
-      <img src="/img/dos-lunas.jpg" alt="dos-lunas" />
+      <img src="/img/123.jpg" alt="123">
+      <img src="/img/amate.jpg" alt="amate">
+      <img src="/img/arrogante.jpg" alt="arrogante">
+      <img src="/img/bajarriba.jpg" alt="bajarriba">
+      <img src="/img/blue-nectar.jpg" alt="blue-nectar">
+      <img src="/img/casa-cofradia.jpg" alt="casa-cofradia">
+      <img src="/img/cruz-del-sol.jpg" alt="cruz-del-sol">
+      <img src="/img/don-eduardo.jpg" alt="don-eduardo">
+      <img src="/img/dos-lunas.jpg" alt="dos-lunas">
     </div>
+    <form>
+      <fieldset>
+        <legend>Slide or Fade</legend>
+        <label>
+          <input type="radio" name="transition-effect" value="slide" checked>
+          Slide
+        </label>
+        <label>
+          <input type="radio" name="transition-effect" value="fade">
+          Fade
+        </label>
+      </fieldset>
+    </form>
     <script src="index.js"></script>
   </body>
 </html>

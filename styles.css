@@ -1,17 +1,29 @@
 :root {
-  --width-img: 260px;
-  --height-img: 480px;
+  --width-img: 390px;
+  --height-img: 720px;
+  --scale-factor: 0.75;
 }
 
 div#carousel {
   position: relative;
-  overflow: hidden;
   margin: 0 auto;
-  width: var(--width-img);
-  height: var(--height-img);
+  width: calc(var(--width-img) * var(--scale-factor));
+  height: calc(var(--height-img) * var(--scale-factor));
+}
+div#carousel.slide {
+  overflow: hidden;
 }
 div#carousel img {
   position: absolute;
-  width: var(--width-img);
-  height: var(--height-img);
+  width: calc(var(--width-img) * var(--scale-factor));
+  height: calc(var(--height-img) * var(--scale-factor));
+}
+div#carousel.fade img {
+  opacity: 0;
+}
+
+form {
+  margin: 2em auto 0;
+  width: calc(var(--width-img) * var(--scale-factor));
+  text-align: center;
 }
