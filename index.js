@@ -33,12 +33,6 @@ const imgNextTransition = () => {
 
   if (transitionValue === TRANSITION_SLIDE) {
 
-    // position and show the images
-    for (let i = 0; i < numImages; i++) {
-      imgElements[i].style.left = IMG_DISPLAY_WIDTH * i + 'px';
-      imgElements[i].style.opacity = 1;
-    }
-
     // initialize positions of current and next images
     let leftCurrent = 0;
     let leftNext;
@@ -57,16 +51,16 @@ const imgNextTransition = () => {
       if (imgNext.style.left <= 0 + 'px') {
         clearInterval(timerIdSlide);
         imgCurrent = imgNext;
-      } // sliding complete
+      }
     }, TIMER_DELAY_SLIDE); // slide timer
 
   } else if (transitionValue === TRANSITION_FADE) {
 
     // set opacities of the images and set their positions
-    for (let i = 0; i < numImages; i++) {
-      imgElements[i].style.opacity = 0;
-      imgElements[i].style.left = '0px';
-    }
+    // for (let i = 0; i < numImages; i++) {
+    //   imgElements[i].style.opacity = 0;
+    //   imgElements[i].style.left = '0px';
+    // }
 
     // initialize opacities of current and next images
     let opacityCurrent = 1;
@@ -87,8 +81,9 @@ const imgNextTransition = () => {
         imgCurrent.style.opacity = 0;
         imgNext.style.opacity = 1;
         imgCurrent = imgNext;
-      } // fading complete
+      }
     }, TIMER_DELAY_FADE); // fade timer
+
   } // fade transition
 };  // function imgNextTransition
 
@@ -112,14 +107,29 @@ const transitionEffectChecked = document.querySelector(
 );
 let transitionValue = transitionEffectChecked.value;
 
-// set transition effect class to the carousel element
 if (transitionValue === TRANSITION_SLIDE) {
+
+  // set transition effect class for the carousel element
   carousel.classList.add(TRANSITION_SLIDE);
   carousel.classList.remove(TRANSITION_FADE);
-}
-else if (transitionValue === TRANSITION_FADE) {
+
+  // position and show the images
+  for (let i = 0; i < numImages; i++) {
+    imgElements[i].style.left = IMG_DISPLAY_WIDTH * i + 'px';
+    imgElements[i].style.opacity = 1;
+  }
+
+} else if (transitionValue === TRANSITION_FADE) {
+
+  // set transition effect class for the carousel element
   carousel.classList.add(TRANSITION_FADE);
   carousel.classList.remove(TRANSITION_SLIDE);
+
+  // set opacities of the images and set their positions
+  for (let i = 0; i < numImages; i++) {
+    imgElements[i].style.opacity = 0;
+    imgElements[i].style.left = '0px';
+  }
 }
 
 // the first image
@@ -144,15 +154,36 @@ for (const effect of transitionEffects) {
     if (effect.checked) {
       transitionValue = effect.value;
 
-      // set transition effect class to the carousel element
       if (transitionValue === TRANSITION_SLIDE) {
+
+        // clearInterval(timerIdFade);
+
+        // reset transition effect class for the carousel element
         carousel.classList.add(TRANSITION_SLIDE);
         carousel.classList.remove(TRANSITION_FADE);
-      }
-      else if (transitionValue === TRANSITION_FADE) {
+
+        // re-position and re-show the images
+        for (let i = 0; i < numImages; i++) {
+          imgElements[i].style.left = IMG_DISPLAY_WIDTH * i + 'px';
+          imgElements[i].style.opacity = 1;
+        }
+        imgNext.style.left = '0px';
+
+      } else if (transitionValue === TRANSITION_FADE) {
+
+        // clearInterval(timerIdSlide);
+
+        // reset transition effect class for the carousel element
         carousel.classList.add(TRANSITION_FADE);
         carousel.classList.remove(TRANSITION_SLIDE);
-      }
+
+        // reset opacities of the images and reset their positions
+        for (let i = 0; i < numImages; i++) {
+          imgElements[i].style.opacity = 0;
+          imgElements[i].style.left = '0px';
+        }
+        imgCurrent.style.opacity = 1;
+      } // fade transition
     }
   }); // change event listener
 } // for each transition effect radio button

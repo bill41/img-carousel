@@ -13,6 +13,9 @@ div#carousel {
 div#carousel.slide {
   overflow: hidden;
 }
+div#carousel.fade {
+  overflow: visible;
+}
 div#carousel img {
   position: absolute;
   width: calc(var(--width-img) * var(--scale-factor));
