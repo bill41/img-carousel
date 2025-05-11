@@ -48,19 +48,14 @@ const imgNextTransition = () => {
       imgNext.style.left = leftNext + 'px';
 
       // sliding complete
-      if (imgNext.style.left <= 0 + 'px') {
+      if (leftNext <= 0) {
         clearInterval(timerIdSlide);
+        imgNext.style.left = '0px';
         imgCurrent = imgNext;
       }
     }, TIMER_DELAY_SLIDE); // slide timer
 
   } else if (transitionValue === TRANSITION_FADE) {
-
-    // set opacities of the images and set their positions
-    // for (let i = 0; i < numImages; i++) {
-    //   imgElements[i].style.opacity = 0;
-    //   imgElements[i].style.left = '0px';
-    // }
 
     // initialize opacities of current and next images
     let opacityCurrent = 1;
@@ -76,7 +71,7 @@ const imgNextTransition = () => {
       imgNext.style.opacity = opacityNext;
 
       // fading complete
-      if (imgNext.style.opacity >= 1) {
+      if (opacityNext >= 1) {
         clearInterval(timerIdFade);
         imgCurrent.style.opacity = 0;
         imgNext.style.opacity = 1;
@@ -167,6 +162,7 @@ for (const effect of transitionEffects) {
           imgElements[i].style.left = IMG_DISPLAY_WIDTH * i + 'px';
           imgElements[i].style.opacity = 1;
         }
+        imgCurrent.style.left = -IMG_DISPLAY_WIDTH + 'px';
         imgNext.style.left = '0px';
 
       } else if (transitionValue === TRANSITION_FADE) {
